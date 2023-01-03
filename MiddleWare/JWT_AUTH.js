@@ -11,14 +11,14 @@ module.exports = (req, res, next) => {
         // console.log(token);
         jwt.verify(token, process.env.JWT_MY_SECRET, async (err, payload) => {
             if (err) {
-                console.log(err);
-                return res.status(401).json({ error: "Not Authorized" })
+                // console.log(err);
+                return res.status(401).json({ error: "Please Login First" })
             }
 
             try {
                 const user = await User.find({ _id: payload._id }).select("-password")
-                req.user = user
-                console.log(user+"user");
+                res.user = user
+                // console.log(user+"user");
                 next()
             } catch (error) {
                 console.log(error);

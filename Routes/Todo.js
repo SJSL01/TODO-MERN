@@ -6,7 +6,7 @@ const TODO = require("../Models/TodoModel")
 router.post("/createTodo", JWT_auth, async (req, res) => {
 
     const { task, user } = req.body
-    console.log(req.body);
+    //console.log(req.body);
     try {
         const newTodo = new TODO({ task, user })
         const result = await newTodo.save()
@@ -19,14 +19,14 @@ router.post("/createTodo", JWT_auth, async (req, res) => {
 router.get("/getTodo/:id", async (req, res) => {
 
     const { id } = req.params
-    console.log(id);
+    //console.log(id);
 
     try {
         const result = await TODO.find({ user: id })
         if (result.length === 0) {
-           return res.status(200).json({ res: undefined })
+            return res.status(200).json([])
         }
-        res.status(200).json({ res: result })
+        res.status(200).json(result)
     } catch (error) {
         res.status(400).json({ message: error })
     }
@@ -35,7 +35,7 @@ router.get("/getTodo/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
 
     const { id } = req.params
-    console.log(id);
+    //console.log(id);
 
     try {
         const result = await TODO.deleteOne({ _id: id })
@@ -49,9 +49,9 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/edit/:id", async (req, res) => {
 
     const { id } = req.params
-    console.log(id);
+    //console.log(id);
     const { isCompleted } = req.body
-    console.log(isCompleted);
+    //console.log(isCompleted);
 
     try {
         const result = await TODO.updateOne({ _id: id }, { $set: { isCompleted: isCompleted } })
@@ -65,9 +65,9 @@ router.put("/edit/:id", async (req, res) => {
 router.put("/editSave/:id", async (req, res) => {
 
     const { id } = req.params
-    console.log(id);
+    //console.log(id);
     // const { editedTask } = req.body
-    console.log(req.body);
+    //console.log(req.body);
 
     try {
         const result = await TODO.replaceOne({ _id: id }, req.body)

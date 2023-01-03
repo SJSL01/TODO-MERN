@@ -8,7 +8,7 @@ const User = require("../Models/UserModel")
 
 
 router.post("/isloggedin", JWT_AUTH, async (req, res) => {
-    res.status(200).json(req.user)
+    res.status(200).json(res.user)
 })
 
 router.post('/login',
